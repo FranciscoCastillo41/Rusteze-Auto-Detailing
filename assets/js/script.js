@@ -238,6 +238,7 @@ document.body.addEventListener("mouseover", function () {
 });
 
 
+
 // FUNCTION
 const btnIcons = document.querySelectorAll('.btn-icon');
 const locationBtns = document.querySelectorAll('.location-btn');
@@ -252,6 +253,7 @@ const packageDescriptionSection = document.getElementById('package-description')
 
 let selectedPackage = '';
 let selectedLocation = '';
+let carType = ''; // Track car type globally
 
 // Show all steps progressively without hiding the previous ones
 function showSection(section) {
@@ -278,6 +280,7 @@ function resetToDefault() {
   packageDetails.innerText = '';
   selectedPackage = '';
   selectedLocation = '';
+  carType = '';
 }
 
 // Attach event listeners to each package button
@@ -308,129 +311,115 @@ locationBtns.forEach(btn => {
   });
 });
 
-// Handle car types
+// Handle car types and link to the correct Calendly URL
+// Handle car types and link to the correct Calendly URL
 carTypeBtns.forEach(btn => {
   btn.addEventListener('click', function() {
-    const carType = btn.getAttribute('data-car');
-
-    // Update the package description section dynamically
-    const packageTitle = packageDescriptionSection.querySelector('.h3.card-title');
-    const packageDetails = document.getElementById('package-details');
-    const bookNowBtn = packageDescriptionSection.querySelector('.book-now-btn');
-    const pricingDetails = document.createElement('p'); // Add pricing dynamically
+    carType = btn.getAttribute('data-car'); // Save car type globally
 
     // Pricing based on car type and package
     const pricing = {
       Coupe: {
-        "Interior Detail": "$100",
-        "Exterior Detail": "$120",
-        "Full Detail": "$200",
-        "Premium Detail": "$250"
+        "Full Detail Basic": "$200"
       },
       Sedan: {
-        "Interior Detail": "$110",
-        "Exterior Detail": "$130",
-        "Full Detail": "$220",
-        "Premium Detail": "$270"
+        "Full Detail Basic": "$220"
       },
       SUV: {
-        "Interior Detail": "$130",
-        "Exterior Detail": "$150",
-        "Full Detail": "$250",
-        "Premium Detail": "$300"
+        "Full Detail Basic": "$250"
       },
       Truck: {
-        "Interior Detail": "$150",
-        "Exterior Detail": "$180",
-        "Full Detail": "$300",
-        "Premium Detail": "$350"
+        "Full Detail Basic": "$300"
       }
     };
 
-    // Calendly links for each location
+    // Calendly links for each location and package
     const calendlyLinks = {
       Houston: {
-        Coupe: {
-          "Interior Detail": "https://calendly.com/houston/interior-coupe",
-          "Exterior Detail": "https://calendly.com/houston/exterior-coupe",
-          "Full Detail": "https://calendly.com/houston/full-coupe",
-          "Premium Detail": "https://calendly.com/houston/premium-coupe"
-        },
-        Sedan: {
-          "Interior Detail": "https://calendly.com/houston/interior-sedan",
-          "Exterior Detail": "https://calendly.com/houston/exterior-sedan",
-          "Full Detail": "https://calendly.com/houston/full-sedan",
-          "Premium Detail": "https://calendly.com/houston/premium-sedan"
-        },
         SUV: {
-          "Interior Detail": "https://calendly.com/houston/interior-suv",
-          "Exterior Detail": "https://calendly.com/houston/exterior-suv",
-          "Full Detail": "https://calendly.com/houston/full-suv",
-          "Premium Detail": "https://calendly.com/houston/premium-suv"
+          "Interior Detail": "https://calendly.com/rustezeautodetailing/interior-detail-suv-houston-tx",
+          "Exterior Detail": "https://calendly.com/rustezeautodetailing/exterior-detail-suv-houston-tx",
+          "Full Detail": "https://calendly.com/rustezeautodetailing/full-detail-basic-suv-houston-tx",
+          "Premium Detail": "https://calendly.com/rustezeautodetailing/premium-detail-suv-houston-tx"
         },
         Truck: {
-          "Interior Detail": "https://calendly.com/houston/interior-truck",
-          "Exterior Detail": "https://calendly.com/houston/exterior-truck",
-          "Full Detail": "https://calendly.com/houston/full-truck",
-          "Premium Detail": "https://calendly.com/houston/premium-truck"
+          "Interior Detail": "https://calendly.com/rustezeautodetailing/interior-detail-truck-houston-tx",
+          "Exterior Detail": "https://calendly.com/rustezeautodetailing/exterior-detail-truck-houston-tx",
+          "Full Detail": "https://calendly.com/rustezeautodetailing/full-detail-basic-truck-houston-tx",
+          "Premium Detail": "https://calendly.com/rustezeautodetailing/premium-detail-truck-houston-tx"
+        },
+        Sedan: {
+          "Interior Detail": "https://calendly.com/rustezeautodetailing/interior-detail-sedan-houston-tx",
+          "Exterior Detail": "https://calendly.com/rustezeautodetailing/exterior-detail-sedan-houston-tx",
+          "Full Detail": "https://calendly.com/rustezeautodetailing/full-detail-basic-sedan-dallas-fort-worth-tx-clone",
+          "Premium Detail": "https://calendly.com/rustezeautodetailing/premium-detail-sedan-houston-tx"
+        },
+        Coupe: {
+          "Interior Detail": "https://calendly.com/rustezeautodetailing/interior-detail-coupe-houston-tx",
+          "Exterior Detail": "https://calendly.com/rustezeautodetailing/exterior-detail-coupe-houston-tx",
+          "Full Detail": "https://calendly.com/rustezeautodetailing/full-detail-basic-coupe-dallas-fort-worth-tx-clone",
+          "Premium Detail": "https://calendly.com/rustezeautodetailing/premium-detail-coupe-houston-tx"
         }
       },
       DFW: {
-        Coupe: {
-          "Interior Detail": "https://calendly.com/dfw/interior-coupe",
-          "Exterior Detail": "https://calendly.com/dfw/exterior-coupe",
-          "Full Detail": "https://calendly.com/dfw/full-coupe",
-          "Premium Detail": "https://calendly.com/dfw/premium-coupe"
-        },
-        Sedan: {
-          "Interior Detail": "https://calendly.com/dfw/interior-sedan",
-          "Exterior Detail": "https://calendly.com/dfw/exterior-sedan",
-          "Full Detail": "https://calendly.com/dfw/full-sedan",
-          "Premium Detail": "https://calendly.com/dfw/premium-sedan"
-        },
         SUV: {
-          "Interior Detail": "https://calendly.com/dfw/interior-suv",
-          "Exterior Detail": "https://calendly.com/dfw/exterior-suv",
-          "Full Detail": "https://calendly.com/dfw/full-suv",
-          "Premium Detail": "https://calendly.com/dfw/premium-suv"
+          "Interior Detail": "https://calendly.com/rustezeautodetailing/interior-detail-suv-dfw-tx",
+          "Exterior Detail": "https://calendly.com/rustezeautodetailing/exterior-detail-suv-dfw-tx",
+          "Full Detail": "https://calendly.com/rustezeautodetailing/full-detail-basic-suv-dallas-fort-worth-tx"
         },
         Truck: {
-          "Interior Detail": "https://calendly.com/dfw/interior-truck",
-          "Exterior Detail": "https://calendly.com/dfw/exterior-truck",
-          "Full Detail": "https://calendly.com/dfw/full-truck",
-          "Premium Detail": "https://calendly.com/dfw/premium-truck"
+          "Interior Detail": "https://calendly.com/rustezeautodetailing/interior-detail-truck-dfw-tx",
+          "Exterior Detail": "https://calendly.com/rustezeautodetailing/exterior-detail-truck-dfw-tx",
+          "Full Detail": "https://calendly.com/rustezeautodetailing/full-detail-basic-truck-dallas-fort-worth-tx"
+        },
+        Sedan: {
+          "Interior Detail": "https://calendly.com/rustezeautodetailing/interior-detail-sedan-dfw-tx",
+          "Exterior Detail": "https://calendly.com/rustezeautodetailing/exterior-detail-sedan-dfw-tx",
+          "Full Detail": "https://calendly.com/rustezeautodetailing/full-detail-basic-sedan-dallas-fort-worth-tx"
+        },
+        Coupe: {
+          "Interior Detail": "https://calendly.com/rustezeautodetailing/interior-detail-coupe-dfw-tx",
+          "Exterior Detail": "https://calendly.com/rustezeautodetailing/exterior-detail-coupe-dfw-tx",
+          "Full Detail": "https://calendly.com/rustezeautodetailing/full-detail-basic-coupe-dallas-fort-worth-tx"
         }
       }
     };
 
-    // Get pricing and Calendly link for the selected package and location
-    const selectedPrice = pricing[carType][selectedPackage] || "Price not available";
+    // Retrieve the price and the correct Calendly link
+    const selectedPrice = pricing[carType]?.[selectedPackage] || "Price not available";
     const calendlyLink =
-      (calendlyLinks[selectedLocation] &&
-        calendlyLinks[selectedLocation][carType] &&
-        calendlyLinks[selectedLocation][carType][selectedPackage]) ||
-      "#";
+      calendlyLinks[selectedLocation]?.[carType]?.[selectedPackage];
+
+    if (!calendlyLink) {
+      console.error("Calendly Link not found for the selected options.");
+      alert("There was an issue with the booking URL. Please try again.");
+      return;
+    }
 
     console.log(`Calendly Link: ${calendlyLink}`); // Debugging
 
-    // Dynamically set the title, details, and pricing
+    // Update the package description section dynamically
+    const packageTitle = packageDescriptionSection.querySelector('.h3.card-title');
+    const bookNowBtn = packageDescriptionSection.querySelector('.book-now-btn');
+
     packageTitle.innerText = `Package Description: ${carType}`;
     packageDetails.innerHTML = `
       <p>You have selected the ${selectedPackage} package for a ${carType}.</p>
-      <p>This package includes a complete set of services to ensure your car's ${selectedPackage.toLowerCase()} is handled with care and professionalism.</p>
+      <p>This package ensures your vehicle gets the best care for ${selectedPackage.toLowerCase()} services.</p>
+      <p class="pricing-details">Price: ${selectedPrice}</p>
     `;
-    pricingDetails.innerText = `Price: ${selectedPrice}`;
-    pricingDetails.classList.add('pricing-details');
-    packageDetails.appendChild(pricingDetails); // Add pricing below details
 
-    // Update the Book Now link
-    bookNowBtn.href = calendlyLink;
-    bookNowBtn.target = "_blank";
+    // Update the "Book Now" button's `onclick` attribute to initialize the Calendly popup
+    bookNowBtn.setAttribute(
+      "onclick",
+      `Calendly.initPopupWidget({url: '${calendlyLink}'}); return false;`
+    );
 
     // Show the package description and booking section
     showSection(packageDescriptionSection);
   });
 });
+
 
 // Handle back button functionality
 backBtns.forEach(btn => {

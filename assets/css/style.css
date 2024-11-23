@@ -1733,7 +1733,29 @@ CENETERED STYLING
   text-align: center;
 }
 
-
 .centered-section h2:hover {
-  cursor: pointer; /* Changes the cursor to a pointer */
+  cursor: pointer; 
 }
+
+.book-now-btn {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  display: inline-block;
+  padding: 10px 22px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white; 
+  background-color: transparent; 
+  border: 2px solid white; 
+  border-radius: 8px; 
+  text-align: center;
+  text-decoration: none; 
+  transition: all 0.3s ease; 
+  cursor: pointer; 
+}
+
+.book-now-btn:hover {
+  background-color: white; 
+  color: black; 
+}
+
